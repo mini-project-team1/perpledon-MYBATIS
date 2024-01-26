@@ -95,7 +95,7 @@ public class Controller {
                     break;
 
                 case "9": System.out.println("⛔ 프로그램 종료 ⛔"); break;
-                default: System.out.println("❗ 잘못된 번호를 입력하셨습니다, 처음으로 돌아갑니다 ❗"); return;
+                default: System.out.println("❗ 잘못된 번호를 입력하셨습니다, 처음으로 돌아갑니다 ❗"); break;
             }
 
         } while (!choose.equals("9"));
