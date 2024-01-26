@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.mapper.HamburgerMapper">
+
+    <resultMap id="orderListResultMap" type="com.ohgiraffers.hamburgerManage.Dto.memberDTO">
+        <id property="code" column="order_code"/>
+        <result property="price" column="original_price"/>
+        <result property="coupon" column="discount_rate"/>
+        <result property="name" column="member_name"/>
+        <result property="finalPrice" column="final_price"/>
+
+    </resultMap>
+
+    <resultMap id="orderMemberResultMap" type="com.ohgiraffers.hamburgerManage.Dto.memberDTO">
+        <id property="name" column="member_name"/>
+        <result property="phone" column="phone"/>
+
+    </resultMap>
+
+    <select id="selectOrderMember" resultMap="orderMemberResultMap">
+        SELECT member_name,phone
+          FROM order_member
+         WHERE member_name = #{ name }
+
+    </select>
+
+    <select id="selectOrderCode" resultType="_int">
+        SELECT order_code
+        FROM order_list
+        ORDER BY order_code desc
+        limit 1
+    </select>
+
+    <insert id="insertOrderMember" parameterType="com.ohgiraffers.hamburgerManage.Dto.memberDTO">
+        INSERT INTO order_member (
+                                    member_name
+                                    ,phone
+                                )
+        VALUES (
+                    #{ name }
+                    ,#{ phone }
+                )
+    </insert>
+
+    <insert id="insertOrderList" parameterType="com.ohgiraffers.hamburgerManage.Dto.memberDTO">
+        INSERT INTO order_list (
+                                original_price
+                                ,discount_rate
+                                ,member_name
+                                ,final_price
+                                )
+        VALUES (
+                    #{ price }
+                    ,#{ coupon }
+                    ,#{ name }
+                    ,#{ finalPrice }
+                )
+    </insert>
+
+    <insert id="insertOrderBurger" parameterType="com.ohgiraffers.hamburgerManage.Dto.memberDTO">
+        INSERT INTO order_burger (
+                                    order_code
+                                    ,hamburger_name
+                                )
+        VALUES (
+                    #{ code }
+                    ,#{ hamburgerName }
+                )
+    </insert>
+
+    <insert id="insertOrderSet" parameterType="com.ohgiraffers.hamburgerManage.Dto.memberDTO">
+        INSERT INTO order_set (
+                                order_code
+                                ,drink_name
+                                ,side_name
+                            )
+        VALUES (
+                    #{ code }
+                    ,#{ drinkName }
+                    ,#{ sideName }
+                )
+    </insert>
+</mapper>
